@@ -51,7 +51,22 @@
       decorate(b, title);
     });
     var ta = aside.querySelector("#neo-composer");
-    if (ta && ta.placeholder === "Tell Neo what to do") ta.placeholder = "Message Neo";
+    if (ta && ta.placeholder === "Tell Neo what to do") ta.placeholder = "Ask Neo anything";
+    // header: conversation title + Beta pill
+    var header = aside.querySelector(":scope > header");
+    if (header) {
+      if (!header.querySelector(".neo-beta")) {
+        var beta = document.createElement("span"); beta.className = "neo-beta"; beta.textContent = "Beta";
+        var nc = header.querySelector('button[aria-label="New chat"]');
+        header.insertBefore(beta, nc || header.lastElementChild);
+      }
+      var h2 = header.querySelector("h2");
+      var first = aside.querySelector(".overflow-y-auto p.self-end");
+      if (h2) {
+        if (first) { var t = first.textContent.trim(); if (h2.textContent !== t) h2.textContent = t; header.setAttribute("data-neo-chat", "1"); }
+        else if (header.hasAttribute("data-neo-chat")) { h2.textContent = "Neo"; header.removeAttribute("data-neo-chat"); }
+      }
+    }
   }
   new MutationObserver(apply).observe(document.documentElement, { childList: true, subtree: true });
   apply();

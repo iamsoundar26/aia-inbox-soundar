@@ -175,3 +175,76 @@ aside[aria-label="Neo"] #neo-composer { font-size: 15px; }
 aside[aria-label="Neo"] button[aria-label="Send"] { height: 34px; width: 34px; }
 /* hide the original bare text node inside decorated cards */
 aside[aria-label="Neo"] .neo-raw { display: none; }
+
+/* ---------- Composer-style chat (reference match) ---------- */
+/* Header: sparkle mark, conversation title, Beta pill, new chat, close */
+aside[aria-label="Neo"] > header > span.bg-primary {
+  color: transparent;
+  background: hsl(var(--primary)) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M12 2.5l1.9 5.6 5.6 1.9-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.9z'/></svg>") center / 16px no-repeat;
+}
+aside[aria-label="Neo"] > header > div.min-w-0 { flex: 1; min-width: 0; }
+aside[aria-label="Neo"] > header h2 { font-size: 15px; line-height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+aside[aria-label="Neo"] > header[data-neo-chat] h2 { font-size: 15px; }
+aside[aria-label="Neo"] > header[data-neo-chat] p { display: none; }
+aside[aria-label="Neo"] > header button[aria-label="New chat"] { display: grid; margin-left: 0; }
+aside[aria-label="Neo"] > header button[aria-label="Close Neo"] { margin-left: 0; }
+aside[aria-label="Neo"] .neo-beta {
+  flex: none; height: 24px; padding: 0 10px; border-radius: 999px;
+  background: hsl(var(--accent)); color: hsl(var(--primary));
+  font-size: 12px; line-height: 24px; font-weight: 600;
+}
+
+/* Disclaimer moves to the top of the thread */
+aside[aria-label="Neo"] > .flex-none.border-t::after { display: none; }
+aside[aria-label="Neo"] .overflow-y-auto::before {
+  content: "Neo is an AI assistant. It prepares work for you to review; nothing is posted until you approve it.";
+  display: block; padding: 12px 16px 0;
+  font-size: 12px; line-height: 16px; color: hsl(var(--surface-foreground-muted));
+}
+
+/* Thread */
+aside[aria-label="Neo"] .overflow-y-auto > .flex.flex-col.gap-4 { gap: 18px; padding: 16px 16px 24px; }
+/* user bubble: soft grey, right aligned */
+aside[aria-label="Neo"] .overflow-y-auto p.self-end.bg-primary {
+  background: hsl(var(--surface-muted)); color: hsl(var(--topnav-text));
+  border-radius: 18px; border-bottom-right-radius: 6px;
+  padding: 12px 16px; margin-left: 40px; font-size: 15px; line-height: 22px;
+}
+/* assistant text: plain, no bubble */
+aside[aria-label="Neo"] .overflow-y-auto p.text-body-3.leading-6 { font-size: 15px; line-height: 24px; }
+/* step log */
+aside[aria-label="Neo"] .overflow-y-auto ol.border-l { border-color: hsl(var(--surface-stroke)); }
+/* result card, "Version 1 · Previewing" style header */
+aside[aria-label="Neo"] .overflow-y-auto div.overflow-hidden.rounded-lg.border {
+  border-radius: 14px; border-color: hsl(var(--surface-stroke)); box-shadow: var(--neo-shadow-sm);
+}
+aside[aria-label="Neo"] .overflow-y-auto div.overflow-hidden.rounded-lg.border > p.bg-accent {
+  display: flex; align-items: center; justify-content: space-between;
+  background: hsl(var(--surface-muted)); padding: 10px 14px; font-size: 13px;
+}
+aside[aria-label="Neo"] .overflow-y-auto div.overflow-hidden.rounded-lg.border > p.bg-accent::after {
+  content: "Prepared"; font-weight: 500; color: hsl(var(--surface-foreground-muted));
+}
+/* feedback row under a result card */
+aside[aria-label="Neo"] .overflow-y-auto .flex.flex-col.gap-2\.5:has(> div.overflow-hidden.rounded-lg.border)::after {
+  content: ""; display: block; height: 20px; width: 56px; margin-top: 2px; opacity: .8;
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23303446' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M7 10v12'/><path d='M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z'/></svg>") left center / 18px no-repeat,
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23303446' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M17 14V2'/><path d='M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z'/></svg>") 36px center / 18px no-repeat;
+}
+
+/* Composer: two-row box, attach icons bottom-left, send bottom-right */
+aside[aria-label="Neo"] > .flex-none.border-t { padding: 8px 14px 14px; }
+aside[aria-label="Neo"] > .flex-none.border-t > .rounded-xl {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; row-gap: 10px;
+  border-radius: 16px; padding: 14px 12px 10px 16px;
+}
+aside[aria-label="Neo"] #neo-composer { grid-column: 1 / -1; min-height: 24px; font-size: 15px; }
+aside[aria-label="Neo"] > .flex-none.border-t > .rounded-xl::before {
+  content: ""; grid-column: 1; grid-row: 2; height: 24px; width: 64px; opacity: .75;
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23303446' stroke-width='2' stroke-linecap='round'><path d='M12 5v14M5 12h14'/></svg>") left center / 20px no-repeat,
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23303446' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='8' y='2' width='8' height='4' rx='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/></svg>") 40px center / 20px no-repeat;
+}
+aside[aria-label="Neo"] button[aria-label="Send"],
+aside[aria-label="Neo"] button[aria-label="Stop"] { grid-column: 2; grid-row: 2; height: 34px; width: 34px; border-radius: 999px; }
