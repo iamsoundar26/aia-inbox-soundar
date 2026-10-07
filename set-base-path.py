@@ -18,7 +18,7 @@ for root, _, files in os.walk(here):
         if not f.endswith((".html", ".js", ".css", ".json")): continue
         p = os.path.join(root, f); s = open(p, encoding="utf-8").read(); o = s
         if f.endswith(".html"):
-            s = re.sub(r'(href|src)="' + re.escape(old) + r'/', lambda m: m.group(1) + '="' + new + '/', s)
+            s = re.sub(r'(href|src)="' + re.escape(old) + r'/', lambda m: m.group(1) + '="' + new + '/', s)  # covers _next, neo-light.css, neo-simple.js
             s = s.replace('"assetPrefix":"%s"' % old, '"assetPrefix":"%s"' % new)
         elif f.endswith(".js"):
             s = s.replace('basePath="%s"' % old, 'basePath="%s"' % new)
