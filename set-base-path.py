@@ -24,6 +24,8 @@ for root, _, files in os.walk(here):
             s = s.replace('basePath="%s"' % old, 'basePath="%s"' % new)
             if f.startswith("webpack-"):  # webpack publicPath
                 s = s.replace('"%s/_next/"' % old, '"%s/_next/"' % new)
+            if f.startswith("724-"):      # public asset prefix (ap/ar sheets, logo)
+                s = s.replace('let ag="%s"' % old, 'let ag="%s"' % new)
             if f.startswith("main-"):     # Next runtime basePath helpers
                 s = s.replace('addPathPrefix)(e,"%s")' % old, 'addPathPrefix)(e,"%s")' % new)
                 s = s.replace('pathHasPrefix)(e,"%s")' % old, 'pathHasPrefix)(e,"%s")' % new)
