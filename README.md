@@ -1,7 +1,7 @@
 # AI Accountant · Inbox (Soundar) — Neo in light theme
 
-> **Status: LOCKED (v1.0, 7 Oct 2026).** This folder is the frozen reference for the Neo copilot concept.
-> Do not edit in place; branch from tag `v1.0-locked` for any follow-up exploration.
+> **Status: ideation-stage concept.** Snapshot tagged `v1.0-locked` on 7 Oct 2026 as a checkpoint, not a sign-off.
+> Branch from that tag for follow-up exploration so the checkpoint stays reproducible.
 
 Static replica of https://sandeep-j-designs.github.io/aia-experiment/inbox/ with two changes:
 
