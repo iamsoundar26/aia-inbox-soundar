@@ -248,3 +248,21 @@ aside[aria-label="Neo"] > .flex-none.border-t > .rounded-xl::before {
 }
 aside[aria-label="Neo"] button[aria-label="Send"],
 aside[aria-label="Neo"] button[aria-label="Stop"] { grid-column: 2; grid-row: 2; height: 34px; width: 34px; border-radius: 999px; }
+
+/* ---------- Top-nav "Ask Neo" trigger: solid primary pill ---------- */
+header button[aria-label="Ask Neo"][title="Ask Neo (Ctrl J)"] {
+  height: 36px; padding: 0 10px 0 6px; gap: 8px; border-radius: 10px;
+  background: hsl(var(--primary)); color: #fff; font-weight: 700; font-size: 14px;
+  box-shadow: 0 0 0 1px hsl(var(--primary)), 0 2px 6px rgba(42, 75, 215, .35);
+}
+header button[aria-label="Ask Neo"][title="Ask Neo (Ctrl J)"]:hover { background: hsl(var(--primary) / .9); }
+header button[aria-label="Ask Neo"][title="Ask Neo (Ctrl J)"][aria-pressed="true"] { background: #1d3bb8; }
+header button[aria-label="Ask Neo"][title="Ask Neo (Ctrl J)"] > span.bg-primary {
+  height: 24px; width: 24px; border-radius: 7px; color: transparent;
+  background: rgba(255,255,255,.22) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M12 2.5l1.9 5.6 5.6 1.9-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.9z'/></svg>") center / 14px no-repeat;
+}
+header button[aria-label="Ask Neo"][title="Ask Neo (Ctrl J)"] > span.sm\:inline { display: inline; }
+header button[aria-label="Ask Neo"][title="Ask Neo (Ctrl J)"]::after {
+  content: "Ctrl J"; display: inline-block; height: 20px; padding: 0 6px; border-radius: 6px;
+  background: rgba(255,255,255,.22); font-size: 11px; line-height: 20px; font-weight: 700; letter-spacing: .2px;
+}

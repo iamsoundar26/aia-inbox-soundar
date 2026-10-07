@@ -27,6 +27,9 @@
     btn.appendChild(wrap);
   }
   function apply() {
+    document.querySelectorAll('header button[aria-label="Ask Neo"] > span.sm\\:inline').forEach(function (sp) {
+      if (sp.textContent === "Neo") sp.textContent = "Ask Neo";
+    });
     var aside = document.querySelector('aside[aria-label="Neo"]');
     if (!aside) return;
     var h = aside.querySelector("p.text-h6");
