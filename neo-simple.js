@@ -35,9 +35,13 @@
     var h = aside.querySelector("p.text-h6");
     if (h && !h.dataset.neo) {
       h.dataset.neo = "1";
-      h.textContent = "How can I help with your books?";
+      var hr = new Date().getHours();
+      h.textContent = (hr < 12 ? "Good morning" : hr < 17 ? "Good afternoon" : "Good evening") + ", Soundar.";
       var p = h.nextElementSibling;
-      if (p) p.textContent = "Pick a task or ask me anything. Nothing posts until you approve it.";
+      if (p) {
+        var m = /(\d+) documents?/.exec(p.textContent);
+        p.textContent = (m ? m[1] + " documents are waiting for you. " : "") + "Pick a task below or ask me anything.";
+      }
     }
     var live = aside.querySelector("button.rounded-xl.bg-background");
     if (live) { var lt = live.querySelector(".text-label-1"); if (lt) decorate(live, lt.textContent.trim()); }
@@ -54,6 +58,7 @@
       decorate(b, title);
     });
     var ta = aside.querySelector("#neo-composer");
+    if (ta && !ta.parentElement.querySelector(".neo-tools")) buildTools(ta);
     if (ta && ta.placeholder === "Tell Neo what to do") ta.placeholder = "Ask Neo anything";
     // header: conversation title + Beta pill
     var header = aside.querySelector(":scope > header");
@@ -70,6 +75,47 @@
         else if (header.hasAttribute("data-neo-chat")) { h2.textContent = "Neo"; header.removeAttribute("data-neo-chat"); }
       }
     }
+  }
+  function setComposer(ta, text) {
+    var set = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, "value").set;
+    set.call(ta, text);
+    ta.dispatchEvent(new Event("input", { bubbles: true }));
+    ta.focus();
+  }
+  function fmtSize(b) { return b < 1024 * 1024 ? Math.max(1, Math.round(b / 1024)) + " KB" : (b / 1048576).toFixed(1) + " MB"; }
+  function buildTools(ta) {
+    var box = ta.parentElement;
+    var chips = document.createElement("div"); chips.className = "neo-chips";
+    box.insertBefore(chips, box.firstChild);
+    var tools = document.createElement("div"); tools.className = "neo-tools";
+    var input = document.createElement("input"); input.type = "file"; input.multiple = true; input.accept = ".pdf,.jpg,.jpeg,.png"; input.hidden = true;
+    var attach = document.createElement("button"); attach.type = "button"; attach.className = "neo-tool neo-tool-attach"; attach.title = "Attach invoices or bills"; attach.setAttribute("aria-label", "Attach files");
+    var paste = document.createElement("button"); paste.type = "button"; paste.className = "neo-tool neo-tool-paste"; paste.title = "Paste from clipboard"; paste.setAttribute("aria-label", "Paste from clipboard");
+    tools.appendChild(attach); tools.appendChild(paste); tools.appendChild(input);
+    box.insertBefore(tools, ta.nextElementSibling);
+    var files = [];
+    function render() {
+      chips.innerHTML = "";
+      files.forEach(function (f, i) {
+        var c = document.createElement("span"); c.className = "neo-chip";
+        c.innerHTML = '<span class="neo-chip-name"></span><span class="neo-chip-size"></span><button type="button" class="neo-chip-x" aria-label="Remove">×</button>';
+        c.querySelector(".neo-chip-name").textContent = f.name;
+        c.querySelector(".neo-chip-size").textContent = fmtSize(f.size);
+        c.querySelector(".neo-chip-x").onclick = function () { files.splice(i, 1); render(); };
+        chips.appendChild(c);
+      });
+      chips.style.display = files.length ? "flex" : "none";
+      if (files.length) setComposer(ta, "Process " + (files.length === 1 ? "this file" : "these " + files.length + " files") + ": " + files.map(function (f) { return f.name; }).join(", "));
+    }
+    attach.onclick = function () { input.value = ""; input.click(); };
+    input.onchange = function () { Array.prototype.forEach.call(input.files, function (f) { files.push(f); }); render(); };
+    paste.onclick = function () {
+      if (!navigator.clipboard || !navigator.clipboard.readText) { ta.focus(); return; }
+      navigator.clipboard.readText().then(function (t) { if (t) setComposer(ta, (ta.value ? ta.value + " " : "") + t.trim()); }).catch(function () { ta.focus(); });
+    };
+    // after a message is sent the field is cleared by the app; drop the chips too
+    ta.addEventListener("input", function () { if (!ta.value && files.length) { files = []; render(); } });
+    render();
   }
   new MutationObserver(apply).observe(document.documentElement, { childList: true, subtree: true });
   apply();

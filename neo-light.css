@@ -240,14 +240,26 @@ aside[aria-label="Neo"] > .flex-none.border-t > .rounded-xl {
   border-radius: 16px; padding: 14px 12px 10px 16px;
 }
 aside[aria-label="Neo"] #neo-composer { grid-column: 1 / -1; min-height: 24px; font-size: 15px; }
-aside[aria-label="Neo"] > .flex-none.border-t > .rounded-xl::before {
-  content: ""; grid-column: 1; grid-row: 2; height: 24px; width: 64px; opacity: .75;
-  background:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23303446' stroke-width='2' stroke-linecap='round'><path d='M12 5v14M5 12h14'/></svg>") left center / 20px no-repeat,
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23303446' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='8' y='2' width='8' height='4' rx='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/></svg>") 40px center / 20px no-repeat;
+aside[aria-label="Neo"] .neo-tools { display: flex; gap: 4px; }
+aside[aria-label="Neo"] .neo-tool {
+  display: grid; place-items: center; height: 30px; width: 30px; border-radius: 8px;
+  color: hsl(var(--topnav-text)); background-position: center; background-repeat: no-repeat; background-size: 20px;
 }
+aside[aria-label="Neo"] .neo-tool:hover { background-color: hsl(var(--surface-muted)); }
+aside[aria-label="Neo"] .neo-tool-attach { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23303446' stroke-width='2' stroke-linecap='round'><path d='M12 5v14M5 12h14'/></svg>"); }
+aside[aria-label="Neo"] .neo-tool-paste  { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23303446' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='8' y='2' width='8' height='4' rx='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/></svg>"); }
+aside[aria-label="Neo"] .neo-chips { grid-column: 1 / -1; display: none; flex-wrap: wrap; gap: 6px; }
+aside[aria-label="Neo"] .neo-chip {
+  display: inline-flex; align-items: center; gap: 6px; max-width: 100%;
+  padding: 4px 6px 4px 10px; border-radius: 10px;
+  border: 1px solid hsl(var(--surface-stroke)); background: hsl(var(--surface-muted)); font-size: 12px; line-height: 16px;
+}
+aside[aria-label="Neo"] .neo-chip-name { max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+aside[aria-label="Neo"] .neo-chip-size { color: hsl(var(--surface-foreground-muted)); }
+aside[aria-label="Neo"] .neo-chip-x { height: 18px; width: 18px; border-radius: 6px; font-size: 14px; line-height: 18px; color: hsl(var(--surface-foreground-muted)); }
+aside[aria-label="Neo"] .neo-chip-x:hover { background: hsl(var(--surface-stroke)); color: hsl(var(--topnav-text)); }
 aside[aria-label="Neo"] button[aria-label="Send"],
-aside[aria-label="Neo"] button[aria-label="Stop"] { grid-column: 2; grid-row: 2; height: 34px; width: 34px; border-radius: 999px; }
+aside[aria-label="Neo"] button[aria-label="Stop"] { grid-column: 2; height: 34px; width: 34px; border-radius: 999px; }
 
 /* ---------- Top-nav "Ask Neo" trigger: solid primary pill ---------- */
 header button[aria-label="Ask Neo"][title="Ask Neo (Ctrl J)"] {
