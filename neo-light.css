@@ -1,0 +1,126 @@
+/* Neo — light theme + cleaner chat surface. Overrides the dark "topnav" tokens
+   only inside the Neo panel and its floating tab. */
+aside[aria-label="Neo"],
+button[title="Ask Neo (Ctrl J)"] {
+  --surface: 0 0% 100%;
+  --surface-muted: 225 40% 97%;
+  --surface-stroke: 222 24% 90%;
+  --surface-foreground-muted: 225 10% 46%;
+  --topnav-text: 228 26% 12%;
+  --neo-shadow-sm: 0 1px 2px rgba(16, 24, 40, .06);
+}
+
+/* Panel shell */
+aside[aria-label="Neo"] {
+  border-left: 1px solid hsl(var(--surface-stroke));
+  box-shadow: -12px 0 32px rgba(16, 24, 40, .08);
+}
+aside[aria-label="Neo"] > header { height: 56px; padding: 0 14px; }
+aside[aria-label="Neo"] > header [role="tablist"] { background: hsl(var(--surface-muted)); padding: 3px; }
+aside[aria-label="Neo"] > header [role="tab"] { height: 26px; }
+aside[aria-label="Neo"] > header [role="tab"][aria-selected="true"] {
+  box-shadow: var(--neo-shadow-sm);
+  border: 1px solid hsl(var(--surface-stroke));
+}
+aside[aria-label="Neo"] > header button[aria-label="New chat"],
+aside[aria-label="Neo"] > header button[aria-label="Close Neo"] { border-radius: 8px; }
+
+/* Sub-header rows: drop the prototype label, keep context as a quiet chip row */
+aside[aria-label="Neo"] > p.border-b { display: none; }
+aside[aria-label="Neo"] > div.h-9 {
+  height: 40px;
+  background: hsl(var(--surface-muted));
+  border-bottom: 1px solid hsl(var(--surface-stroke));
+}
+
+/* Scroll area */
+aside[aria-label="Neo"] .overflow-y-auto > .flex.flex-col.gap-5 { gap: 20px; padding: 24px 16px; }
+
+/* Welcome block: centered with a Neo mark above it */
+aside[aria-label="Neo"] div:has(> p.text-h6) { text-align: center; padding: 8px 8px 0; }
+aside[aria-label="Neo"] div:has(> p.text-h6)::before {
+  content: "";
+  display: block;
+  width: 56px; height: 56px;
+  margin: 4px auto 18px;
+  border-radius: 16px;
+  background: hsl(var(--primary))
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'><path d='M12 2.5l1.9 5.6 5.6 1.9-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.9z'/></svg>")
+    center / 24px no-repeat;
+}
+aside[aria-label="Neo"] div:has(> p.text-h6) > p.text-h6 { font-size: 22px; line-height: 28px; }
+aside[aria-label="Neo"] div:has(> p.text-h6) > p.text-body-3 { max-width: 36ch; margin-left: auto; margin-right: auto; }
+
+/* Live-run card */
+aside[aria-label="Neo"] button.rounded-xl.bg-background {
+  border: 1px solid hsl(var(--surface-stroke));
+  border-radius: 16px;
+  box-shadow: var(--neo-shadow-sm);
+}
+aside[aria-label="Neo"] button.rounded-xl.bg-background:hover { border-color: hsl(var(--primary) / .45); }
+aside[aria-label="Neo"] button.rounded-xl.bg-background span.bg-surface.uppercase {
+  background: hsl(var(--accent));
+  color: hsl(var(--primary));
+  border-radius: 6px;
+}
+
+/* Quick-ask list → cards */
+aside[aria-label="Neo"] ul.flex.flex-col.gap-1 { gap: 8px; }
+aside[aria-label="Neo"] ul.flex.flex-col.gap-1 > li > button {
+  border: 1px solid hsl(var(--surface-stroke));
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: hsl(var(--surface));
+  font-size: 14px; line-height: 20px;
+  transition: border-color .15s, background-color .15s;
+}
+aside[aria-label="Neo"] ul.flex.flex-col.gap-1 > li > button:hover {
+  background: hsl(var(--surface-muted));
+  border-color: hsl(var(--primary) / .45);
+}
+aside[aria-label="Neo"] ul.flex.flex-col.gap-1 > li > button > kbd {
+  height: 26px; min-width: 26px;
+  border-radius: 8px;
+  background: hsl(var(--accent));
+  color: hsl(var(--primary));
+}
+aside[aria-label="Neo"] ul.flex.flex-col.gap-1 > li > button:hover > kbd {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+/* Composer */
+aside[aria-label="Neo"] > .flex-none.border-t { padding: 12px 14px 10px; background: hsl(var(--surface)); }
+aside[aria-label="Neo"] > .flex-none.border-t > .rounded-xl {
+  background: hsl(var(--surface));
+  border-radius: 16px;
+  padding: 8px 8px 8px 14px;
+  box-shadow: var(--neo-shadow-sm);
+}
+aside[aria-label="Neo"] > .flex-none.border-t > .rounded-xl:focus-within {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 3px hsl(var(--primary) / .12);
+}
+aside[aria-label="Neo"] #neo-composer { font-size: 14px; }
+aside[aria-label="Neo"] button[aria-label="Send"] {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border-radius: 9999px;
+  height: 30px; width: 30px;
+}
+aside[aria-label="Neo"] > .flex-none.border-t > p { justify-content: center; }
+aside[aria-label="Neo"] > .flex-none.border-t::after {
+  content: "Neo can make mistakes. Review extracted details before approving.";
+  display: block;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 11px; line-height: 14px;
+  color: hsl(var(--surface-foreground-muted));
+}
+
+/* Floating "Ask Neo" tab when the panel is closed */
+button[title="Ask Neo (Ctrl J)"] {
+  border: 1px solid hsl(var(--surface-stroke));
+  border-right: 0;
+  box-shadow: -4px 0 16px rgba(16, 24, 40, .08);
+}
