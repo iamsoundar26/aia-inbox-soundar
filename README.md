@@ -1,5 +1,8 @@
 # AI Accountant · Inbox (Soundar) — Neo in light theme
 
+> **Status: LOCKED (v1.0, 7 Oct 2026).** This folder is the frozen reference for the Neo copilot concept.
+> Do not edit in place; branch from tag `v1.0-locked` for any follow-up exploration.
+
 Static replica of https://sandeep-j-designs.github.io/aia-experiment/inbox/ with two changes:
 
 - Profile is **Soundar R** (avatar `SR`, soundar.r@aiaccountant.com, greeting "Good …, Soundar").
